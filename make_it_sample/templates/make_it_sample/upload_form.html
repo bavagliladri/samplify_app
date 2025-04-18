@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Samplify: make it sample!</title>
+</head>
+<body>
+    <h1>Upload the csv files (family trees) and insert the number of languages to be included in the sample</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create sample</button>
+    </form>
+</body>
+</html>

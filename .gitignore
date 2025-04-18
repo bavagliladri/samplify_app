@@ -1,0 +1,96 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+.installed.cfg
+*.egg-info/
+.env
+venv
+env
+ENV
+__pypackages__/
+*.pth
+.DS_Store
+
+# PyCharm / IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# VS Code
+.vscode/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Django-specific
+*.log
+*.pot
+media
+static
+staticfiles
+db.sqlite3
+db.sqlite3-*
+local_settings.py
+local_settings*.py
+instance/
+
+# Celery / RabbitMQ
+*.pid
+*.pool
+
+# Supervisor
+*.sock
+
+# OS or Editor backups
+*~
+*.bak
+*.swp
+*.swo
+.fuse_hidden*
+.directory
+.Trash-*
+ehthumbs.db
+Thumbs.db
+
+# Other common files
+*.orig
+*.rej
+. Coveralls.yml
+.travis.yml
+.gitlab-ci.yml
+.tox
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.mo
+*.po
+
+# MyPy cache
+.mypy_cache/
+
+# Ruff cache
+.ruff_cache/
