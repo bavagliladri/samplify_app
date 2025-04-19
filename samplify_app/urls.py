@@ -21,4 +21,5 @@ from make_it_sample import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('make_it_sample/', views.process_data, name='process_data'),
+    path('', views.home, name='home'),
 ]

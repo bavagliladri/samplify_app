@@ -1,6 +1,6 @@
 import os
 import networkx as nx
-import language_family_tree as lft
+from .language_family_tree import *
 import random
 import json
 import pandas as pd
@@ -28,7 +28,7 @@ class Forest(list):
             self.import_forest(dir)
         
         for arg in args:
-            if isinstance(arg, lft.LanguageFamilyTree):
+            if isinstance(arg, LanguageFamilyTree):
                 self.append(arg)
             else:
                 raise ValueError("Only LanguageFamilyTree objects can be added to the forest.")
@@ -40,7 +40,7 @@ class Forest(list):
         Parameters:
             tree (LanguageFamilyTree): The tree to append.
         """
-        if isinstance(tree, lft.LanguageFamilyTree):
+        if isinstance(tree, LanguageFamilyTree):
             super().append(tree)
         else:
             raise ValueError("Only LanguageFamilyTree objects can be added to the forest.")
@@ -55,7 +55,7 @@ class Forest(list):
         for filename in os.listdir(dir):
             if filename.endswith(".csv"):
                 filepath = os.path.join(dir, filename)
-                tree = lft.LanguageFamilyTree(filepath)
+                tree = LanguageFamilyTree(filepath)
                 self.append(tree)
     
     def export_forest(self, dir: str, format="csv"):
@@ -91,7 +91,7 @@ class Forest(list):
         if not self:
             raise ValueError("The forest is empty.")
 
-        max_depth_value = max([lft.max_depth(tree) for tree in self])
+        max_depth_value = max([max_depth(tree) for tree in self])
         for tree in self:
             tree.update_tree_dv(max_depth_value=max_depth_value)
     

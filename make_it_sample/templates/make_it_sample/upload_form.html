@@ -4,11 +4,16 @@
     <title>Samplify: make it sample!</title>
 </head>
 <body>
-    <h1>Upload the csv files (family trees) and insert the number of languages to be included in the sample</h1>
-    <form method="post" enctype="multipart/form-data">
+    <h1>Upload the CSV files and specify the number of languages</h1>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+        <label for="id_csv_files">Select CSV files:</label>
+        <input type="file" name="csv_files" id="id_csv_files" multiple required><br><br>
+
         {{ form.as_p }}
+
         <button type="submit">Create sample</button>
     </form>
 </body>
 </html>
+

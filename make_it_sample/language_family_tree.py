@@ -2,6 +2,7 @@ import networkx as nx
 import pandas as pd
 import json
 import random
+import io
 
 
 def max_depth(tree, root=None):
@@ -22,7 +23,7 @@ def max_depth(tree, root=None):
 
 
 class LanguageFamilyTree(nx.DiGraph):
-    def __init__(self, filepath=None):
+    def __init__(self, filepath=None, fileobj=None):
         """
         Initialize the LanguageFamilyTree with a CSV file path.
         
@@ -31,16 +32,34 @@ class LanguageFamilyTree(nx.DiGraph):
         """
         super().__init__()
         if filepath:
-            self.load_and_build_tree(filepath)
+            self.load_and_build_tree(filepath=filepath)
+        elif fileobj:
+            self.load_and_build_tree(fileobj=fileobj)
 
-    def load_tree_data(self, filepath: str) -> pd.DataFrame:
+    def load_tree_data(self, filepath=None, fileobj=None) -> pd.DataFrame:
         """
         Load the CSV file into a DataFrame.
         
         Returns:
             pd.DataFrame: The loaded data.
         """
-        return pd.read_csv(filepath)
+        if filepath:
+            return pd.read_csv(filepath)
+        elif fileobj:
+            return self.load_tree_from_file_object(fileobj)
+        else:
+            raise ValueError("Either filepath or fileobj must be provided.")
+    
+    def load_tree_from_file_object(self, fileobj) -> pd.DataFrame:
+        """
+        Load the CSV file from a file object (already open) into a DataFrame.
+        
+        Returns:
+            pd.DataFrame: The loaded data.
+        """
+        
+        tetx_file = io.TextIOWrapper(fileobj, encoding='utf-8')
+        return pd.read_csv(tetx_file)
 
     def make_tree(self, df: pd.DataFrame):
         """
@@ -116,12 +135,16 @@ class LanguageFamilyTree(nx.DiGraph):
                 self.add_edge(parent, f"{lang}_group")
                 self.add_edge(f"{lang}_group", lang)
 
-    def load_and_build_tree(self, filepath):
+    def load_and_build_tree(self, filepath=None, fileobj=None):
         """
         Load the data and build the tree.
         """
-        
-        df = self.load_tree_data(filepath)
+        if filepath is None and fileobj is None:
+            raise ValueError("Either filepath or fileobj must be provided.")
+        if fileobj:
+            df = self.load_tree_from_file_object(fileobj=fileobj)
+        else:
+            df = self.load_tree_data(filepath=filepath)
         self.make_tree(df)
         self.add_pseudogroups()
         
